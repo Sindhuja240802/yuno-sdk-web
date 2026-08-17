@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Generic Checkout | Yuno</title>
+
+  <link rel="stylesheet" href="../static/styles.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background: #f6f7f9;
+      color: #1f2937;
+    }
+
+    .checkout-page {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .merchant-header {
+      margin-bottom: 24px;
+    }
+
+    .merchant-header h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+    }
+
+    .merchant-header p {
+      margin: 0;
+      color: #6b7280;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .item-name {
+      font-weight: 600;
+    }
+
+    .item-meta {
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .total {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    #root {
+      min-height: 180px;
+    }
+
+    #form-element,
+    #action-form-element {
+      width: 100%;
+    }
+
+    #loader {
+      display: none;
+      margin: 12px 0;
+      padding: 10px;
+      text-align: center;
+      border-radius: 8px;
+      background: #f3f4f6;
+    }
+
+    #button-pay {
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px 18px;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      background: #111827;
+      color: white;
+    }
+
+    #button-pay:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #payment-status {
+      margin-top: 12px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 800px) {
+      .checkout-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="checkout-page">
+
+    <header class="merchant-header">
+      <h1>Generic Checkout</h1>
+      <p>Secure payment powered by Yuno</p>
+    </header>
+
+    <section class="checkout-grid">
+
+      <!-- Order Summary -->
+      <aside class="card">
+
+        <h2>Order Summary</h2>
+
+        <div class="item">
+          <div>
+            <div class="item-name">Fashion Item</div>
+            <div class="item-meta">Quantity: 1</div>
+          </div>
+
+          <strong>COP 2,000</strong>
+        </div>
+
+        <div class="total">
+          <span>Total</span>
+          <span>COP 2,000</span>
+        </div>
+
+      </aside>
+
+      <!-- Payment -->
+      <section class="card">
+
+        <h2>Payment</h2>
+
+        <!-- Yuno SDK mounts the checkout here -->
+        <div id="root"></div>
+
+        <!-- Yuno payment forms -->
+        <div id="form-element"></div>
+        <div id="action-form-element"></div>
+
+        <div id="loader">
+          Processing payment...
+        </div>
+
+        <button id="button-pay" type="button">
+          Pay Now
+        </button>
+
+        <div id="payment-status"></div>
+
+      </section>
+
+    </section>
+
+  </main>
+
+  <!-- Our generic checkout logic -->
+  <script type="module" src="../static/generic-checkout.js"></script>
+
+  <!-- Yuno Web SDK -->
+  <script
+    src="https://sdk-web.y.uno/v1.9/main.js"
+    defer>
+  </script>
+
+</body>
+</html>
